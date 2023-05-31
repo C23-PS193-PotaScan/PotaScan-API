@@ -71,7 +71,7 @@ export const getArticleByCategory = async(req, res) => {
             }
         });
 
-        if (!artcle) {
+        if (!article) {
             res.status(404).json({
                 message: "Article not found"
             });
