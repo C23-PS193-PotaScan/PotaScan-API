@@ -16,7 +16,7 @@ export const getUsers = async(req, res) => {
 export const Register = async(req, res) => {
     const { name, email, password, confirmPass} = req.body
     if(password !== confirmPass) {
-        return res.status(400).json({msg: "Password dan confirmPass Password tidak sama"})
+        return res.status(400).json({message: "Password and confirmPass Password don't match"})
     }
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt)
@@ -27,7 +27,7 @@ export const Register = async(req, res) => {
             email: email,
             password: hashPassword 
         })
-        res.json({msg: "register Berhasil"})
+        res.json({message: "Successful register"})
     } catch (error) {
         console.log(error)
     }
@@ -42,7 +42,7 @@ export const Login = async(req, res) => {
         })
 
         const match = await bcrypt.compare(req.body.password, user[0].password)
-        if(!match) return res.status(400).json({msg: "Password Salah"})
+        if(!match) return res.status(400).json({message: "Wrong Password"})
         
         const userId = user[0].id
         const name = user[0].name
@@ -67,9 +67,14 @@ export const Login = async(req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
             // secure: true
         })
-        res.json( { accessToken } )
+        res.status(200).json({
+                statusCode: 200,
+                message: 'Success',
+                data : {
+                    "accessToken": accessToken
+            }});
     } catch (error) {
-        return res.status(404).json({ msg: "Email tidak ditemukan" });
+        return res.status(404).json({ message: "Email not found" });
     }
 }
 
@@ -89,6 +94,6 @@ export const Logout = async(req, res) => {
         }
     })
     res.clearCookie('refreshToken')
-    return res.status(200).json({ msg: "Successful Logout" });
+    return res.status(200).json({ message: "Successfull Logout" });
     
 }

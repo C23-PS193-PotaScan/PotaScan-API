@@ -8,17 +8,17 @@ const router = express.Router()
 
 //API Login
 router.get('/users', verifyToken, getUsers)
-router.post('/users', Register)
+router.post('/register', Register)
 router.post('/login', Login)
 router.get('/token', refreshToken)
 router.delete('/logout', Logout)
 
-//API artikel
-router.get('/artikel', getListArticle)
-router.get('/artikel/:articleId', getArticleById)
-router.get('/artikel/category/:category', getArticleByCategory)
-router.post('/artikel', postArticle)
-router.put('/artikel', updateArticle)
-router.delete('/artikel/:articleId', deleteArticle)
+//API article
+router.get('/article', getListArticle)
+router.get('/article/:articleId', getArticleById)
+router.get('/article/category/:category', getArticleByCategory)
+router.post('/article', postArticle)
+router.put('/article', updateArticle)
+router.delete('/article/:articleId', deleteArticle)
 
 export default router
