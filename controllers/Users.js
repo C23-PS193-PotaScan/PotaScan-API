@@ -65,7 +65,7 @@ export const Login = async(req, res) => {
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000,
-            secure: true
+            // secure: true
         })
         res.json( { accessToken } )
     } catch (error) {
@@ -89,5 +89,6 @@ export const Logout = async(req, res) => {
         }
     })
     res.clearCookie('refreshToken')
-    return res.sendStatus(200)
+    return res.status(200).json({ msg: "Successful Logout" });
+    
 }
