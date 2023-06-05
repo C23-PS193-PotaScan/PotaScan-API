@@ -1,7 +1,9 @@
 import Sequelize from 'sequelize';
+import dotenv from 'dotenv'
+dotenv.config();
 
-const db = new Sequelize('potascan_db', 'root', 'asd', {
-    host: "35.232.95.198",
+const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+    host: process.env.HOST,
     dialect: "mysql"
 });
 
