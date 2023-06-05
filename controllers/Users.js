@@ -1,17 +1,10 @@
 import Users from "../models/UserModel.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import dotenv from 'dotenv'
+dotenv.config();
 
-export const getUsers = async(req, res) => {
-    try {
-        const users = await Users.findAll({
-            attributes: ['id', 'name', 'email']
-        })
-        res.json(users)
-    } catch (error) {
-        console.log(error)
-    }
-}
+
 
 export const Register = async(req, res) => {
     const { name, email, password, confirmPass} = req.body
@@ -49,7 +42,7 @@ export const Login = async(req, res) => {
         const email = user[0].email
 
         const accessToken = jwt.sign( { userId, name, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '15s'
+            expiresIn: '1d'
         })
 
         const refreshToken = jwt.sign( { userId, name, email }, process.env.REFRESH_TOKEN_SECRET, {
