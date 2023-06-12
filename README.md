@@ -67,62 +67,10 @@ Welcome to the PotaScan App API documentation! This guide will provide you with 
 ---
 
 **Method:**
->GET
-
-- **Show Users**
-    ><https://potascan-api-fbaiidjkha-uc.a.run.app/>**users**
-
-    **Required:**
-
-  - **Request Headers:**
-
-    | Headers | Value |
-    | ------ | ------ |
-    | Authorization	 | Bearer {accessToken} |
-
-  **Response:**
-
-    ```JSON
-    {
-        "id": 1,
-        "name": "Name",
-        "email": "email@gmail.com"
-    },...
-    ```
-
-
-- **Refresh Token Login**
-    ><https://potascan-api-fbaiidjkha-uc.a.run.app/>**token**
-
-    This endpoint is mainly to get new accessToken.
-
-    **Required:**
-
-  - **Request Headers:**
-
-    | Headers | Value |
-    | ------ | ------ |
-    | Cookie | refreshToken=xxxxxxxxxxx |
-
-  **Response:**
-
-    ```JSON
-    {
-      "statusCode": 200,
-      "message": "Success",
-      "data": {
-          "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksIm5hbWUiOiJuYW1lIiwiZW1haWwiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODU1MjI1MTgsImV4cCI6MTY4NTYwODkxOH0.GgwWidMcv2MX6ecwBGh7MBoEBRTNwjgvLC9mKPbzKfM"
-      }
-    }
-    ```
-
----
-
-**Method:**
 >DELETE
 
 - **User logout**
-    ><https://potascan-api-fbaiidjkha-uc.a.run.app/>**user/logout**
+    ><https://potascan-api-fbaiidjkha-uc.a.run.app/>**logout**
 
     This endpoint is mainly to delete session in a way delete refreshToken Cookie.
 
@@ -191,6 +139,12 @@ Welcome to the PotaScan App API documentation! This guide will provide you with 
     ><https://potascan-api-fbaiidjkha-uc.a.run.app/>**article**
 
      This endpoint is mainly to retrieve all articles within database.
+     
+     - **Request Headers:**
+
+    | Headers | Value |
+    | ------ | ------ |
+    | Authorization | Bearer {accessToken} |
 
      **Response:**
 
@@ -219,6 +173,11 @@ Welcome to the PotaScan App API documentation! This guide will provide you with 
      **Required:**
 
     - **Path Params**
+    - **Request Headers:**
+
+    | Headers | Value |
+    | ------ | ------ |
+    | Authorization | Bearer {accessToken} |
 
   **Response:**
 
@@ -246,6 +205,11 @@ Welcome to the PotaScan App API documentation! This guide will provide you with 
      **Required:**
 
     - **Path Params**
+    - **Request Headers:**
+
+    | Headers | Value |
+    | ------ | ------ |
+    | Authorization | Bearer {accessToken} |
 
   **Response:**
 
