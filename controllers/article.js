@@ -1,23 +1,23 @@
 import db from "../config/Database.js";
 import response  from '../response.js';
-import Artikel from '../models/articleModel.js'
+import Article from '../models/articleModel.js'
 import { request } from "express";
 
 export const getListArticle = async(req, res) => {
     try {
-        const artikel = await Artikel.findAll({
+        const article = await Article.findAll({
             attributes: ['articleId', 'title', 'category', 'date', 'writer', 'mainContent', 'image']
         })
-        if(artikel.length > 0){
+        if(article.length > 0){
             return res.status(200).json({
                 statusCode: 200,
                 message: 'Success',
-                data: artikel
+                data: article
             })
         }else {
             return res.status(404).json({
                 statusCode: 404,
-                message: 'Data tidak ditemukan'
+                message: 'Data not found'
             })
         }
     } catch (error) {
@@ -28,22 +28,22 @@ export const getListArticle = async(req, res) => {
 export const getArticleById = async(req, res) => {
     try {
         const articleId = req.params.articleId
-        const artikel = await Artikel.findOne({
+        const article = await Article.findOne({
             attributes: ['articleId', 'title', 'category', 'date', 'writer', 'mainContent', 'image'],
             where: {
                 articleId: articleId
             }
         });
     
-        if (!artikel) {
+        if (!article) {
             res.status(404).json({
-                message: "Article tidak ditemukan"
+                message: "Article not found"
             });
         } else {
             res.status(200).json({
                 statusCode: 200,
                 message: 'Success',
-                data : artikel
+                data : article
             });
         }
     } catch (error) {
@@ -64,22 +64,22 @@ export const getArticleById = async(req, res) => {
 export const getArticleByCategory = async(req, res) => {
     try {
         const category = req.params.category
-        const artikel = await Artikel.findOne({
+        const article = await Article.findOne({
             attributes: ['articleId', 'title', 'category', 'date', 'writer', 'mainContent', 'image'],
             where: {
                 category: category
             }
         });
 
-        if (!artikel) {
+        if (!article) {
             res.status(404).json({
-                message: "Article tidak ditemukan"
+                message: "Article not found"
             });
         } else {
             res.status(200).json({
                 statusCode: 200,
                 message: 'Success',
-                data : artikel
+                data : article
             });
         }
     } catch (error) {
@@ -90,7 +90,7 @@ export const getArticleByCategory = async(req, res) => {
 
 export const postArticle = async(req, res) => {
     const { articleId, title, category, date, writer, mainContent, image } = req.body;
-    const artikel = new Artikel({
+    const article = new Article({
         articleId,
         title,
         category,
@@ -101,10 +101,10 @@ export const postArticle = async(req, res) => {
     });
 
     try {
-        await artikel.save();
+        await article.save();
         res.status(201).json({
-            message: "Article berhasil ditambahkan",
-            artikel,
+            message: "Article added successfully",
+            article,
         });
     } catch (error) {
         res.status(500).json({
@@ -116,31 +116,31 @@ export const postArticle = async(req, res) => {
 
 export const updateArticle = async (req, res) => {
     const { articleId, title, category, date, writer, mainContent, image } = req.body;
-    const artikel = await Artikel.findOne({
+    const article = await Article.findOne({
       where: {
         articleId: articleId
       }
     });
   
-    if (!artikel) {
+    if (!article) {
       res.status(404).json({
-        message: "Article tidak ditemukan"
+        message: "Article not found"
       });
       return;
     }
   
-    artikel.title = title;
-    artikel.category = category;
-    artikel.date = date;
-    artikel.writer = writer;
-    artikel.mainContent = mainContent;
-    artikel.image = image;
+    article.title = title;
+    article.category = category;
+    article.date = date;
+    article.writer = writer;
+    article.mainContent = mainContent;
+    article.image = image;
   
-    await artikel.save();
+    await article.save();
   
     res.status(200).json({
-      message: "Article berhasil diubah",
-      artikel,
+      message: "Article successfully changed",
+      article,
     });
   };
 
@@ -163,23 +163,23 @@ export const updateArticle = async (req, res) => {
 
 export const deleteArticle = async (req, res) => {
     const articleId = req.params.articleId
-    const artikel = await Artikel.findOne({
+    const article = await Article.findOne({
       where: {
         articleId: articleId
       }
     });
   
-    if (!artikel) {
+    if (!article) {
       res.status(404).json({
-        message: "Article tidak ditemukan"
+        message: "Article not found"
       });
       return;
     }
   
-    await artikel.destroy();
+    await article.destroy();
   
     res.status(200).json({
-      message: "Article berhasil dihapus",
+      message: "Article successfully deleted",
     });
   };
 

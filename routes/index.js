@@ -1,5 +1,5 @@
 import express from 'express'
-import { getUsers, Register, Login, Logout } from '../controllers/Users.js'
+import { Register, Login, Logout } from '../controllers/Users.js'
 import { verifyToken } from '../middleware/VerifyToken.js'
 import { refreshToken } from '../controllers/RefreshToken.js'
 import { getListArticle, getArticleById, getArticleByCategory, postArticle, updateArticle, deleteArticle } from '../controllers/article.js'
@@ -7,18 +7,17 @@ import { getListArticle, getArticleById, getArticleByCategory, postArticle, upda
 const router = express.Router()
 
 //API Login
-router.get('/users', verifyToken, getUsers)
-router.post('/users', Register)
+router.post('/register', Register)
 router.post('/login', Login)
 router.get('/token', refreshToken)
-router.delete('/Logout', Logout)
+router.delete('/logout', Logout)
 
-//API artikel
-router.get('/artikel', getListArticle)
-router.get('/artikel/:articleId', getArticleById)
-router.get('/artikel/category/:category', getArticleByCategory)
-router.post('/artikel', postArticle)
-router.put('/artikel', updateArticle)
-router.delete('/artikel/:articleId', deleteArticle)
+//API article
+router.get('/article', verifyToken, getListArticle)
+router.get('/article/:articleId', verifyToken, getArticleById)
+router.get('/article/category/:category', verifyToken, getArticleByCategory)
+router.post('/article', verifyToken, postArticle)
+router.put('/article', verifyToken, updateArticle)
+router.delete('/article/:articleId', verifyToken, deleteArticle)
 
 export default router

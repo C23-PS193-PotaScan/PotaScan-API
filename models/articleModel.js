@@ -3,7 +3,7 @@ import db from '../config/Database.js'
 
 const { DataTypes } = Sequelize
 
-const Artikel = db.define('artikel', {
+const Article = db.define('article', {
     articleId:{
         type: DataTypes.STRING,
         primaryKey: true,
@@ -33,4 +33,4 @@ const Artikel = db.define('artikel', {
 }
 )
 
-export default Artikel
+export default Article
